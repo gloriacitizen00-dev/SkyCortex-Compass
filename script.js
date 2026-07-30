@@ -1,28 +1,25 @@
 const degrees = document.getElementById("degrees");
 
-let heading = 0;
-
-
-// encontrar el SVG dentro del object
 const compass = document.querySelector("object");
-
 
 compass.addEventListener("load", () => {
 
     const svg = compass.contentDocument;
-
     const needle = svg.getElementById("needle");
 
 
-    setInterval(()=>{
+    window.addEventListener("deviceorientation", (event) => {
+
+        let heading = event.alpha;
 
 
-        heading += 10;
-
-
-        if(heading >= 360){
-            heading = 0;
+        if (heading === null) {
+            degrees.textContent = "NO SENSOR";
+            return;
         }
+
+
+        heading = Math.round(360 - heading);
 
 
         needle.setAttribute(
@@ -35,7 +32,7 @@ compass.addEventListener("load", () => {
             heading.toString().padStart(3,"0") + "°";
 
 
-    },500);
+    });
 
 
 });
