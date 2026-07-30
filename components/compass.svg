@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" 
+     width="450" 
+     height="450" 
+     viewBox="0 0 450 450">
+
+    <!-- Fondo -->
+    <circle 
+        cx="225" 
+        cy="225" 
+        r="210" 
+        fill="#101820"
+        stroke="#9aa4b2"
+        stroke-width="8"/>
+
+    <!-- Marcas principales -->
+    <g stroke="white" stroke-width="3">
+
+        <line x1="225" y1="25" x2="225" y2="55"/>
+        <line x1="425" y1="225" x2="395" y2="225"/>
+        <line x1="225" y1="425" x2="225" y2="395"/>
+        <line x1="25" y1="225" x2="55" y2="225"/>
+
+    </g>
+
+
+    <!-- Direcciones -->
+    <g fill="white" 
+       font-size="32" 
+       font-family="Arial"
+       text-anchor="middle">
+
+        <text x="225" y="70">N</text>
+        <text x="390" y="235">E</text>
+        <text x="225" y="400">S</text>
+        <text x="60" y="235">W</text>
+
+    </g>
+
+
+    <!-- Aguja -->
+    <g id="needle">
+
+        <polygon 
+            points="
+            225,80
+            210,225
+            240,225"
+            fill="#ff3b30"/>
+
+
+        <polygon 
+            points="
+            225,370
+            210,225
+            240,225"
+            fill="white"/>
+
+
+        <circle
+            cx="225"
+            cy="225"
+            r="12"
+            fill="#ffd700"
+            stroke="white"
+            stroke-width="3"/>
+
+    </g>
+
+</svg>
