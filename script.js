@@ -18,6 +18,9 @@ const compass = document.querySelector("object");
 
 let currentHeading = 0;
 let targetHeading = 0;
+let map;
+let marker;
+
 
 function getDirection(angle){
 
@@ -166,6 +169,11 @@ if (navigator.geolocation) {
             latitude.textContent =
             position.coords.latitude.toFixed(5) + "°";
 
+            updateMap(
+    position.coords.latitude,
+    position.coords.longitude
+);
+
 
             longitude.textContent =
             position.coords.longitude.toFixed(5) + "°";
@@ -284,5 +292,48 @@ function moonPhase(){
 
 
 moonPhase();
+
+function updateMap(lat, lon){
+
+
+if(!map){
+
+    map = L.map("map").setView(
+        [lat,lon],
+        15
+    );
+
+
+    L.tileLayer(
+        "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+            maxZoom:19
+        }
+    ).addTo(map);
+
+
+    marker = L.marker(
+        [lat,lon]
+    ).addTo(map);
+
+
+}
+else{
+
+
+    map.setView(
+        [lat,lon]
+    );
+
+
+    marker.setLatLng(
+        [lat,lon]
+    );
+
+
+}
+
+
+}
 
 
