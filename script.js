@@ -128,6 +128,8 @@ if(event.webkitCompassHeading){
     targetHeading =
     Math.round(event.webkitCompassHeading);
 
+    console.log(targetHeading);
+
 }
 else{
 
@@ -139,13 +141,16 @@ else{
 
 
 degrees.textContent =
-targetHeading
+Math.round(targetHeading)
 .toString()
 .padStart(3,"0")
 +"°";
 
+
 direction.textContent =
-getDirection(targetHeading);
+getDirection(Math.round(targetHeading));
+
+
 rotateMarker(targetHeading);
 
 
@@ -470,12 +475,13 @@ function rotateMarker(angle){
 
     const arrow = document.getElementById("arrow");
 
-    if(arrow){
-
-        arrow.style.transform =
-        `rotate(${angle}deg)`;
-
+    if(!arrow){
+        return;
     }
+
+
+    arrow.style.transform =
+    `rotate(${angle}deg)`;
 
 }
 
