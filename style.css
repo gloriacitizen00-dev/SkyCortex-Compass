@@ -161,3 +161,16 @@ h1{
     }
 
 }
+
+#map{
+
+    width:450px;
+    height:300px;
+
+    margin:30px auto;
+
+    border-radius:15px;
+
+    border:1px solid #334155;
+
+}
