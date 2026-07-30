@@ -9,6 +9,7 @@ const moon = document.getElementById("moon");
 const sun = document.getElementById("sun");
 const solarTime = document.getElementById("solarTime");
 
+
 const gpsStatus = document.getElementById("gpsStatus");
 const accuracy = document.getElementById("accuracy");
 
@@ -21,6 +22,7 @@ let targetHeading = 0;
 let map;
 let marker;
 let userHeading = 0;
+let accuracyCircle;
 
 
 function getDirection(angle){
@@ -170,10 +172,10 @@ if (navigator.geolocation) {
 
             latitude.textContent =
             position.coords.latitude.toFixed(5) + "°";
-
-            updateMap(
+updateMap(
     position.coords.latitude,
-    position.coords.longitude
+    position.coords.longitude,
+    position.coords.accuracy
 );
 
 
@@ -295,7 +297,41 @@ function moonPhase(){
 
 moonPhase();
 
-function updateMap(lat, lon){
+function updateSolarTime(){
+
+    const now = new Date();
+
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+
+
+    solarTime.textContent =
+    hours.toString().padStart(2,"0")
+    + ":" +
+    minutes.toString().padStart(2,"0");
+
+
+    if(hours >= 6 && hours < 18){
+
+        sun.textContent = "☀️ DAY";
+
+    }
+    else{
+
+        sun.textContent = "🌙 NIGHT";
+
+    }
+
+}
+
+updateSolarTime();
+
+setInterval(
+    updateSolarTime,
+    60000
+);
+
+function updateMap(lat, lon, accuracyValue){
 
 
 if(!map){
@@ -306,12 +342,13 @@ if(!map){
     );
 
 
-    L.tileLayer(
-        "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
-        {
-            maxZoom:19
-        }
-    ).addTo(map);
+L.tileLayer(
+    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+    {
+        maxZoom:19,
+        attribution:"SkyCortex Satellite View"
+    }
+).addTo(map);
 
 
    const compassIcon = L.divIcon({
@@ -334,6 +371,15 @@ marker = L.marker(
     [lat,lon],
     {
         icon: compassIcon
+    }
+).addTo(map);
+
+accuracyCircle = L.circle(
+    [lat, lon],
+    {
+        radius: accuracyValue,
+        color:"#38bdf8",
+        fillOpacity:0.15
     }
 ).addTo(map);
 
