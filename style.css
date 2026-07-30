@@ -196,3 +196,31 @@ h1{
 
 }
 
+.arrow-container{
+
+    width:40px;
+    height:40px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+}
+
+
+#arrow{
+
+    font-size:35px;
+
+    transform-origin:center;
+
+    transition:transform 0.2s ease;
+
+    color:#38bdf8;
+
+    text-shadow:
+    0 0 10px black;
+
+}
+
+
