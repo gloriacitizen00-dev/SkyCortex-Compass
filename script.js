@@ -21,6 +21,7 @@ const compass = document.querySelector("object");
 
 
 let currentHeading = 0;
+let compassOffset = 121;
 let targetHeading = 0;
 let map;
 let marker;
@@ -131,11 +132,22 @@ if(event.webkitCompassHeading){
     console.log(targetHeading);
 
 }
+    
 else{
 
     targetHeading =
-    Math.round(event.alpha);
+    Math.round(event.alpha + compassOffset);
 
+    console.log(targetHeading);
+
+}
+
+if(targetHeading >= 360){
+    targetHeading -= 360;
+}
+
+if(targetHeading < 0){
+    targetHeading += 360;
 }
 
 
