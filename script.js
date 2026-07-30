@@ -3,6 +3,9 @@ const degrees = document.getElementById("degrees");
 const latitude = document.getElementById("latitude");
 const longitude = document.getElementById("longitude");
 const altitude = document.getElementById("altitude");
+const moon = document.getElementById("moon");
+const sun = document.getElementById("sun");
+const solarTime = document.getElementById("solarTime");
 
 const gpsStatus = document.getElementById("gpsStatus");
 const accuracy = document.getElementById("accuracy");
@@ -159,3 +162,58 @@ timeout:10000
 
 
 }
+
+function moonPhase(){
+
+    const knownNewMoon = new Date("2024-01-11");
+
+    const today = new Date();
+
+
+    const days =
+    (today - knownNewMoon) /
+    (1000 * 60 * 60 * 24);
+
+
+    const cycle = 29.53;
+
+
+    const phase =
+    days % cycle;
+
+
+    let name;
+
+
+    if(phase < 1){
+        name="🌑 New Moon";
+    }
+    else if(phase < 7.4){
+        name="🌒 Waxing Crescent";
+    }
+    else if(phase < 8.8){
+        name="🌓 First Quarter";
+    }
+    else if(phase < 14.7){
+        name="🌔 Waxing Gibbous";
+    }
+    else if(phase < 16){
+        name="🌕 Full Moon";
+    }
+    else if(phase < 22){
+        name="🌖 Waning Gibbous";
+    }
+    else if(phase < 23.5){
+        name="🌗 Last Quarter";
+    }
+    else{
+        name="🌘 Waning Crescent";
+    }
+
+
+    moon.textContent=name;
+
+}
+
+
+moonPhase();
