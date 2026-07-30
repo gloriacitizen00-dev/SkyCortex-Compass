@@ -1,5 +1,7 @@
 const degrees = document.getElementById("degrees");
 
+const direction = document.getElementById("direction");
+
 const latitude = document.getElementById("latitude");
 const longitude = document.getElementById("longitude");
 const altitude = document.getElementById("altitude");
@@ -16,6 +18,40 @@ const compass = document.querySelector("object");
 
 let currentHeading = 0;
 let targetHeading = 0;
+
+function getDirection(angle){
+
+    if(angle >= 337.5 || angle < 22.5){
+        return "N";
+    }
+
+    if(angle >= 22.5 && angle < 67.5){
+        return "NE";
+    }
+
+    if(angle >= 67.5 && angle < 112.5){
+        return "E";
+    }
+
+    if(angle >= 112.5 && angle < 157.5){
+        return "SE";
+    }
+
+    if(angle >= 157.5 && angle < 202.5){
+        return "S";
+    }
+
+    if(angle >= 202.5 && angle < 247.5){
+        return "SW";
+    }
+
+    if(angle >= 247.5 && angle < 292.5){
+        return "W";
+    }
+
+    return "NW";
+
+}
 
 
 
@@ -99,6 +135,9 @@ targetHeading
 .toString()
 .padStart(3,"0")
 +"°";
+
+direction.textContent =
+getDirection(targetHeading);
 
 
 
@@ -245,3 +284,5 @@ function moonPhase(){
 
 
 moonPhase();
+
+
