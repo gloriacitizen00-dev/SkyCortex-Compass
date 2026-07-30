@@ -138,7 +138,7 @@ else{
     targetHeading =
     Math.round(event.alpha + compassOffset);
 
-    console.log(targetHeading);
+    gpsStatus.textContent = targetHeading + " RAW";
 
 }
 
