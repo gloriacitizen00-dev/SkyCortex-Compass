@@ -1,34 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>SkyCortex Compass</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <div class="app">
+<div class="app">
 
-        <h1>SkyCortex Compass</h1>
+    <h1>SKYCORTEX COMPASS</h1>
 
-        <div class="compass">
+    <div class="compass">
 
-            <object 
-        id="compassObject"
-        type="image/svg+xml"
-        data="components/compass.svg">
-    </object>
+        <object 
+            type="image/svg+xml"
+            data="components/compass.svg">
+        </object>
+
+    </div>
+
+
+    <div class="data-panel">
+
+        <div>
+            <span>HEADING</span>
+            <strong id="degrees">000°</strong>
+        </div>
+
+        <div>
+            <span>GPS</span>
+            <strong>WAITING</strong>
+        </div>
+
+        <div>
+            <span>SATELLITES</span>
+            <strong>--</strong>
+        </div>
+
+    </div>
 
 
 </div>
 
-        <h2 id="degrees">0°</h2>
-
-    </div>
 
 <script src="script.js"></script>
 
 </body>
+
 </html>
