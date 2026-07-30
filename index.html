@@ -15,16 +15,47 @@
 
         <div class="compass">
 
-            <div class="needle" id="needle"></div>
+<svg id="compassSVG" width="450" height="450" viewBox="0 0 450 450">
 
-            <div class="center"></div>
+    <!-- Círculo exterior -->
+    <circle
+        cx="225"
+        cy="225"
+        r="205"
+        fill="#16202b"
+        stroke="#9aa4b2"
+        stroke-width="8"/>
 
-            <div class="north">N</div>
-            <div class="east">E</div>
-            <div class="south">S</div>
-            <div class="west">W</div>
+    <!-- Marcas cardinales -->
+    <text x="225" y="45" text-anchor="middle" fill="white" font-size="34">N</text>
+    <text x="405" y="235" text-anchor="middle" fill="white" font-size="34">E</text>
+    <text x="225" y="425" text-anchor="middle" fill="white" font-size="34">S</text>
+    <text x="45" y="235" text-anchor="middle" fill="white" font-size="34">W</text>
 
-        </div>
+    <!-- Aguja -->
+    <g id="needle">
+
+        <polygon
+            points="225,70 215,225 235,225"
+            fill="#ff3b30"/>
+
+        <polygon
+            points="225,380 215,225 235,225"
+            fill="white"/>
+
+        <circle
+            cx="225"
+            cy="225"
+            r="10"
+            fill="gold"
+            stroke="white"
+            stroke-width="3"/>
+
+    </g>
+
+</svg>
+
+</div>
 
         <h2 id="degrees">0°</h2>
 
