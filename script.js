@@ -1,25 +1,24 @@
-const needle = document.getElementById("needle");
 const degrees = document.getElementById("degrees");
 
-let angle = 0;
 
-function animate(){
+let heading = 0;
 
-    angle += 1;
 
-    if(angle >= 360){
-        angle = 0;
+setInterval(()=>{
+
+
+    heading++;
+
+
+    if(heading >= 360){
+
+        heading = 0;
+
     }
 
-    needle.setAttribute(
-        "transform",
-        `rotate(${angle} 225 225)`
-    );
 
-    degrees.textContent = angle + "°";
+    degrees.textContent =
+        heading.toString().padStart(3,"0") + "°";
 
-    requestAnimationFrame(animate);
 
-}
-
-animate();
+},100);
