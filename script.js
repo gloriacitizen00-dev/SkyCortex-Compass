@@ -79,8 +79,18 @@ return;
 
 
 
-targetHeading =
-Math.round(360 - event.alpha);
+if(event.webkitCompassHeading){
+
+    targetHeading =
+    Math.round(event.webkitCompassHeading);
+
+}
+else{
+
+    targetHeading =
+    Math.round(360 - event.alpha);
+
+}
 
 
 
