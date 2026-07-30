@@ -4,6 +4,9 @@ const latitude = document.getElementById("latitude");
 const longitude = document.getElementById("longitude");
 const altitude = document.getElementById("altitude");
 
+const gpsStatus = document.getElementById("gpsStatus");
+const accuracy = document.getElementById("accuracy");
+
 
 const compass = document.querySelector("object");
 
@@ -102,6 +105,7 @@ navigator.geolocation.watchPosition(
 
 (position)=>{
 
+gpsStatus.textContent = "ONLINE";
 
 latitude.textContent =
 position.coords.latitude.toFixed(4)+"°";
@@ -123,19 +127,31 @@ altitude.textContent="N/A";
 
 }
 
+accuracy.textContent =
+Math.round(position.coords.accuracy)+" m";
 
 },
 
 
 (error)=>{
 
-latitude.textContent="ERROR";
+gpsStatus.textContent="ERROR";
+
+
+latitude.textContent="--";
+longitude.textContent="--";
+altitude.textContent="--";
+accuracy.textContent="--";
 
 },
 
 
 {
-enableHighAccuracy:true
+enableHighAccuracy:true,
+
+maximumAge:1000,
+
+timeout:10000
 }
 
 
