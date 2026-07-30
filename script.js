@@ -20,6 +20,7 @@ let currentHeading = 0;
 let targetHeading = 0;
 let map;
 let marker;
+let userHeading = 0;
 
 
 function getDirection(angle){
@@ -141,6 +142,7 @@ targetHeading
 
 direction.textContent =
 getDirection(targetHeading);
+rotateMarker(targetHeading);
 
 
 
@@ -312,9 +314,28 @@ if(!map){
     ).addTo(map);
 
 
-    marker = L.marker(
-        [lat,lon]
-    ).addTo(map);
+   const compassIcon = L.divIcon({
+
+    className:"compass-marker",
+
+    html:`
+        <div id="arrow">
+            ▲
+        </div>
+    `,
+
+    iconSize:[40,40],
+    iconAnchor:[20,20]
+
+});
+
+
+marker = L.marker(
+    [lat,lon],
+    {
+        icon: compassIcon
+    }
+).addTo(map);
 
 
 }
@@ -333,6 +354,19 @@ else{
 
 }
 
+
+}
+
+function rotateMarker(angle){
+
+    const arrow = document.getElementById("arrow");
+
+    if(arrow){
+
+        arrow.style.transform =
+        `rotate(${angle}deg)`;
+
+    }
 
 }
 
