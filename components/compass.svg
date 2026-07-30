@@ -38,7 +38,7 @@
 
 
     <!-- Aguja -->
-    <g id="needle">
+    <g id="needle" transform="rotate(0 225 225)">
 
         <polygon 
             points="
