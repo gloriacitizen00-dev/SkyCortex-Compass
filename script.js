@@ -24,7 +24,6 @@ let currentHeading = 0;
 let targetHeading = 0;
 let map;
 let marker;
-let userHeading = 0;
 let accuracyCircle;
 
 
@@ -133,7 +132,7 @@ if(event.webkitCompassHeading){
 else{
 
     targetHeading =
-    Math.round(360 - event.alpha);
+    Math.round(event.alpha);
 
 }
 
@@ -418,10 +417,12 @@ L.tileLayer(
     className:"compass-marker",
 
     html:`
+    <div class="arrow-container">
         <div id="arrow">
             ▲
         </div>
-    `,
+    </div>
+`,
 
     iconSize:[40,40],
     iconAnchor:[20,20]
