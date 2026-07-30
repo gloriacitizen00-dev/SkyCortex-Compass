@@ -8,6 +8,9 @@ const altitude = document.getElementById("altitude");
 const moon = document.getElementById("moon");
 const sun = document.getElementById("sun");
 const solarTime = document.getElementById("solarTime");
+const sunrise = document.getElementById("sunrise");
+const sunset = document.getElementById("sunset");
+const solarAltitude = document.getElementById("solarAltitude");
 
 
 const gpsStatus = document.getElementById("gpsStatus");
@@ -182,6 +185,11 @@ updateMap(
             longitude.textContent =
             position.coords.longitude.toFixed(5) + "°";
 
+            updateSun(
+    position.coords.latitude,
+    position.coords.longitude
+);
+
 
             if(position.coords.altitude !== null){
 
@@ -331,6 +339,60 @@ setInterval(
     60000
 );
 
+function updateSun(lat, lon){
+
+    const now = new Date();
+
+
+    const times = SunCalc.getTimes(
+        now,
+        lat,
+        lon
+    );
+
+
+    sunrise.textContent =
+    times.sunrise.toLocaleTimeString([],{
+        hour:"2-digit",
+        minute:"2-digit"
+    });
+
+
+    sunset.textContent =
+    times.sunset.toLocaleTimeString([],{
+        hour:"2-digit",
+        minute:"2-digit"
+    });
+
+
+    const position = SunCalc.getPosition(
+        now,
+        lat,
+        lon
+    );
+
+
+    const solarAngle =
+    position.altitude * 180 / Math.PI;
+
+
+    solarAltitude.textContent =
+    solarAngle.toFixed(1)+"°";
+
+
+    if(solarAngle > 0){
+
+        sun.textContent="☀️ DAY";
+
+    }
+    else{
+
+        sun.textContent="🌙 NIGHT";
+
+    }
+
+}
+
 function updateMap(lat, lon, accuracyValue){
 
 
@@ -415,5 +477,4 @@ function rotateMarker(angle){
     }
 
 }
-
 
