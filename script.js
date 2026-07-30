@@ -105,6 +105,8 @@ targetHeading
 
 if (navigator.geolocation) {
 
+    gpsStatus.textContent = "SEARCHING...";
+
 
     navigator.geolocation.watchPosition(
 
@@ -159,9 +161,9 @@ if (navigator.geolocation) {
                     "TIMEOUT";
                     break;
 
-                default:
-                    gpsStatus.textContent =
-                    "ERROR";
+default:
+    gpsStatus.textContent =
+    "ERROR " + error.code;
 
             }
 
