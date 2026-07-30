@@ -101,64 +101,80 @@ targetHeading
 
 // GPS
 
-if(navigator.geolocation){
+// GPS
+
+if (navigator.geolocation) {
 
 
-navigator.geolocation.watchPosition(
+    navigator.geolocation.watchPosition(
 
-(position)=>{
+        (position)=>{
 
-gpsStatus.textContent = "ONLINE";
+            gpsStatus.textContent = "ONLINE";
 
-latitude.textContent =
-position.coords.latitude.toFixed(4)+"°";
-
-
-longitude.textContent =
-position.coords.longitude.toFixed(4)+"°";
+            latitude.textContent =
+            position.coords.latitude.toFixed(5) + "°";
 
 
-if(position.coords.altitude){
-
-altitude.textContent =
-Math.round(position.coords.altitude)+" m";
-
-}
-else{
-
-altitude.textContent="N/A";
-
-}
-
-accuracy.textContent =
-Math.round(position.coords.accuracy)+" m";
-
-},
+            longitude.textContent =
+            position.coords.longitude.toFixed(5) + "°";
 
 
-(error)=>{
+            if(position.coords.altitude !== null){
 
-gpsStatus.textContent="ERROR";
+                altitude.textContent =
+                Math.round(position.coords.altitude) + " m";
 
+            }
+            else{
 
-latitude.textContent="--";
-longitude.textContent="--";
-altitude.textContent="--";
-accuracy.textContent="--";
+                altitude.textContent = "N/A";
 
-},
-
-
-{
-enableHighAccuracy:true,
-
-maximumAge:1000,
-
-timeout:10000
-}
+            }
 
 
-);
+            accuracy.textContent =
+            Math.round(position.coords.accuracy) + " m";
+
+
+        },
+
+
+        (error)=>{
+
+            switch(error.code){
+
+                case 1:
+                    gpsStatus.textContent =
+                    "PERMISSION DENIED";
+                    break;
+
+                case 2:
+                    gpsStatus.textContent =
+                    "NO SIGNAL";
+                    break;
+
+                case 3:
+                    gpsStatus.textContent =
+                    "TIMEOUT";
+                    break;
+
+                default:
+                    gpsStatus.textContent =
+                    "ERROR";
+
+            }
+
+        },
+
+
+        {
+            enableHighAccuracy:true,
+            maximumAge:0,
+            timeout:15000
+        }
+
+    );
 
 
 }
