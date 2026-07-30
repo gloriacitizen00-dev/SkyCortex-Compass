@@ -8,20 +8,14 @@
 body{
 
     background:#050b12;
-
     color:white;
 
-    font-family:
-    "Segoe UI",
-    Arial,
-    sans-serif;
+    font-family:"Segoe UI", Arial, sans-serif;
 
-    height:100vh;
+    min-height:100vh;
 
     display:flex;
-
     justify-content:center;
-
     align-items:center;
 
 }
@@ -37,31 +31,30 @@ body{
 h1{
 
     letter-spacing:5px;
-
-    margin-bottom:30px;
+    margin-bottom:20px;
 
     font-size:28px;
-
     color:#7dd3fc;
 
 }
 
 
-
 .compass{
 
-    width:600px;
+    width:450px;
+    height:450px;
 
-    height:600px;
+    margin:auto;
 
 }
 
 
 .compass object{
 
-    width:100%;
+    width:450px;
+    height:450px;
 
-    height:100%;
+    display:block;
 
 }
 
@@ -75,7 +68,7 @@ h1{
 
     justify-content:center;
 
-    gap:30px;
+    gap:20px;
 
 }
 
@@ -87,7 +80,7 @@ h1{
 
     border:1px solid #334155;
 
-    padding:15px 25px;
+    padding:12px 20px;
 
     border-radius:10px;
 
@@ -103,7 +96,6 @@ h1{
     color:#94a3b8;
 
 }
-
 
 
 .data-panel strong{
