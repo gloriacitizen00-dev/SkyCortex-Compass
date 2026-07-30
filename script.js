@@ -3,7 +3,7 @@ const degrees = document.getElementById("degrees");
 
 let angle = 0;
 
-function animate() {
+function animate(){
 
     angle += 1;
 
@@ -11,8 +11,10 @@ function animate() {
         angle = 0;
     }
 
-    needle.style.transform =
-        `translate(-50%, -100%) rotate(${angle}deg)`;
+    needle.setAttribute(
+        "transform",
+        `rotate(${angle} 225 225)`
+    );
 
     degrees.textContent = angle + "°";
 
