@@ -3,11 +3,11 @@ const degrees = document.getElementById("degrees");
 
 let angle = 0;
 
-setInterval(() => {
+function animate() {
 
     angle += 1;
 
-    if (angle >= 360) {
+    if(angle >= 360){
         angle = 0;
     }
 
@@ -16,4 +16,8 @@ setInterval(() => {
 
     degrees.textContent = angle + "°";
 
-}, 30);
+    requestAnimationFrame(animate);
+
+}
+
+animate();
