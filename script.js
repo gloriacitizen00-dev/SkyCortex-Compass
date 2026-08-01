@@ -1,5 +1,10 @@
 import navigationEngine from "./modules/NavigationEngine.js";
 
+const gpsSupported = navigationEngine.initialize();
+
+console.log("Navigation Engine:", navigationEngine);
+console.log("GPS Supported:", gpsSupported);
+
 const degrees = document.getElementById("degrees");
 
 const direction = document.getElementById("direction");
