@@ -79,7 +79,7 @@ const svg = compass.contentDocument;
 const needle = svg.getElementById("needle");
 
 const compassRotation =
-svg.getElementById("compass-rotation");
+svg.getElementById("needle");
 
 
 
