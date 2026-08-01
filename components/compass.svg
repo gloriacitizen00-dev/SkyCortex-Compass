@@ -24,6 +24,8 @@ stroke="#334155"
 stroke-width="2"/>
 
 
+<g id="compass-rotation">
+
 <!-- escala -->
 
 <g stroke="#cbd5e1">
@@ -37,9 +39,6 @@ stroke-width="2"/>
 <line x1="45" y1="250" x2="75" y2="250" stroke-width="4"/>
 
 </g>
-
-
-<g id="compass-rotation">
 
 <g fill="#94a3b8"
 font-size="14"
