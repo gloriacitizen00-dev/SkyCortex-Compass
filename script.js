@@ -1,3 +1,5 @@
+import navigationEngine from "./modules/NavigationEngine.js";
+
 const degrees = document.getElementById("degrees");
 
 const direction = document.getElementById("direction");
