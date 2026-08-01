@@ -73,8 +73,6 @@ text-anchor="middle">
 
 </g>
 
-</g>
-
 <g id="rays">
 
     <line
@@ -121,6 +119,6 @@ stroke-width="4"/>
 
 </g>
 
-
+</g>
 
 </svg>
