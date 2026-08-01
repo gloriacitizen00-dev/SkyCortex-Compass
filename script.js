@@ -78,6 +78,9 @@ const svg = compass.contentDocument;
 
 const needle = svg.getElementById("needle");
 
+const compassRotation =
+svg.getElementById("compass-rotation");
+
 
 
 function animate(){
@@ -100,9 +103,9 @@ currentHeading += difference * 0.08;
 
 
 
-needle.setAttribute(
+compassRotation.setAttribute(
 "transform",
-`rotate(${currentHeading} 250 250)`
+`rotate(${-currentHeading} 250 250)`
 );
 
 
