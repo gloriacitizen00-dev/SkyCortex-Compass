@@ -120,9 +120,15 @@ animate();
 
 
 
-window.addEventListener(
-"deviceorientation",
-(event)=>{
+window.addEventListener("deviceorientation", (event) => {
+
+    console.log("DEVICE ORIENTATION");
+    console.log("alpha:", event.alpha);
+    console.log("beta:", event.beta);
+    console.log("gamma:", event.gamma);
+    console.log("webkitCompassHeading:", event.webkitCompassHeading);
+
+});
 
 
 if(event.alpha === null){
