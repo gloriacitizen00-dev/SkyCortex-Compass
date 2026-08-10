@@ -203,16 +203,11 @@ function getDirection(angle) {
 function rotateNeedle(heading) {
 
     if (!needle) {
-
-        console.log(
-            "NEEDLE NOT READY"
-        );
-
+        console.log("NEEDLE NOT READY");
         return;
     }
 
-    const rotation =
-        -heading;
+    const rotation = -heading;
 
     needle.setAttribute(
         "transform",
