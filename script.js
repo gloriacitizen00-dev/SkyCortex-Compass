@@ -80,24 +80,58 @@ window.addEventListener("deviceorientation", (event) => {
         return;
     }
 
-    let heading = Math.round(event.alpha);
+    let heading = event.alpha;
 
-    // Mantener entre 0 y 359
     heading = ((heading % 360) + 360) % 360;
 
+    const roundedHeading = Math.round(heading);
+
     degrees.textContent =
-        heading
+        roundedHeading
             .toString()
             .padStart(3, "0") + "°";
 
     direction.textContent =
-        getDirection(heading);
+        getDirection(roundedHeading);
 
-    console.log("ALPHA:", event.alpha);
-    console.log("HEADING:", heading);
+
+    // ===============================
+    // MOVE COMPASS NEEDLE
+    // ===============================
+
+    const compass =
+        document.querySelector("object");
+
+    if (!compass) {
+        console.log("Compass SVG not found");
+        return;
+    }
+
+    const svg =
+        compass.contentDocument;
+
+    if (!svg) {
+        console.log("Compass SVG not loaded");
+        return;
+    }
+
+    const needle =
+        svg.getElementById("needle");
+
+    if (!needle) {
+        console.log("Needle not found");
+        return;
+    }
+
+    needle.setAttribute(
+        "transform",
+        `rotate(${-heading} 250 250)`
+    );
+
+
     console.log(
-        "DIRECTION:",
-        getDirection(heading)
+        "HEADING:",
+        roundedHeading
     );
 
 });
