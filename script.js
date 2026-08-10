@@ -29,7 +29,7 @@ const accuracy = document.getElementById("accuracy");
 
 
 // ===============================
-// DIRECCIONES
+// DIRECCIÓN
 // ===============================
 
 function getDirection(angle) {
@@ -67,18 +67,23 @@ function getDirection(angle) {
 
 
 // ===============================
-// PRUEBA DEL SENSOR DE ORIENTACIÓN
+// BRÚJULA — PRUEBA DEL SENSOR
 // ===============================
 
 window.addEventListener("deviceorientation", (event) => {
 
     if (event.alpha === null) {
+
         degrees.textContent = "NO SENSOR";
         direction.textContent = "--";
+
         return;
     }
 
-    const heading = Math.round(event.alpha);
+    let heading = Math.round(event.alpha);
+
+    // Mantener entre 0 y 359
+    heading = ((heading % 360) + 360) % 360;
 
     degrees.textContent =
         heading
@@ -90,7 +95,10 @@ window.addEventListener("deviceorientation", (event) => {
 
     console.log("ALPHA:", event.alpha);
     console.log("HEADING:", heading);
-    console.log("DIRECTION:", getDirection(heading));
+    console.log(
+        "DIRECTION:",
+        getDirection(heading)
+    );
 
 });
 
@@ -118,7 +126,9 @@ if (navigator.geolocation) {
             if (position.coords.altitude !== null) {
 
                 altitude.textContent =
-                    Math.round(position.coords.altitude) + " m";
+                    Math.round(
+                        position.coords.altitude
+                    ) + " m";
 
             } else {
 
@@ -127,9 +137,14 @@ if (navigator.geolocation) {
             }
 
             accuracy.textContent =
-                Math.round(position.coords.accuracy) + " m";
+                Math.round(
+                    position.coords.accuracy
+                ) + " m";
 
-            console.log("GPS POSITION:", position.coords);
+            console.log(
+                "GPS POSITION:",
+                position.coords
+            );
 
         },
 
@@ -179,7 +194,6 @@ if (navigator.geolocation) {
                         "GPS ERROR:",
                         error
                     );
-
             }
 
         },
@@ -194,13 +208,14 @@ if (navigator.geolocation) {
 
 } else {
 
-    gpsStatus.textContent = "GPS NOT SUPPORTED";
+    gpsStatus.textContent =
+        "GPS NOT SUPPORTED";
 
 }
 
 
 // ===============================
-// LUNA
+// FASE DE LA LUNA
 // ===============================
 
 function moonPhase() {
@@ -223,35 +238,37 @@ function moonPhase() {
     let name;
 
     if (phase < 1) {
+
         name = "🌑 New Moon";
-    }
 
-    else if (phase < 7.4) {
+    } else if (phase < 7.4) {
+
         name = "🌒 Waxing Crescent";
-    }
 
-    else if (phase < 8.8) {
+    } else if (phase < 8.8) {
+
         name = "🌓 First Quarter";
-    }
 
-    else if (phase < 14.7) {
+    } else if (phase < 14.7) {
+
         name = "🌔 Waxing Gibbous";
-    }
 
-    else if (phase < 16) {
+    } else if (phase < 16) {
+
         name = "🌕 Full Moon";
-    }
 
-    else if (phase < 22) {
+    } else if (phase < 22) {
+
         name = "🌖 Waning Gibbous";
-    }
 
-    else if (phase < 23.5) {
+    } else if (phase < 23.5) {
+
         name = "🌗 Last Quarter";
-    }
 
-    else {
+    } else {
+
         name = "🌘 Waning Crescent";
+
     }
 
     if (moon) {
@@ -269,7 +286,8 @@ moonPhase();
 
 function updateSolarTime() {
 
-    const now = new Date();
+    const now =
+        new Date();
 
     const hours =
         now.getHours();
@@ -280,10 +298,15 @@ function updateSolarTime() {
     if (solarTime) {
 
         solarTime.textContent =
-            hours.toString().padStart(2, "0")
-            + ":"
+            hours
+                .toString()
+                .padStart(2, "0")
             +
-            minutes.toString().padStart(2, "0");
+            ":"
+            +
+            minutes
+                .toString()
+                .padStart(2, "0");
 
     }
 
@@ -291,11 +314,13 @@ function updateSolarTime() {
 
         if (hours >= 6 && hours < 18) {
 
-            sun.textContent = "☀️ DAY";
+            sun.textContent =
+                "☀️ DAY";
 
         } else {
 
-            sun.textContent = "🌙 NIGHT";
+            sun.textContent =
+                "🌙 NIGHT";
 
         }
 
