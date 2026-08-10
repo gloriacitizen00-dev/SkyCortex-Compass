@@ -72,16 +72,25 @@ function getDirection(angle) {
 
 window.addEventListener("deviceorientation", (event) => {
 
-    console.log("================================");
-    console.log("DEVICE ORIENTATION");
-    console.log("alpha:", event.alpha);
-    console.log("beta:", event.beta);
-    console.log("gamma:", event.gamma);
-    console.log(
-        "webkitCompassHeading:",
-        event.webkitCompassHeading
-    );
-    console.log("================================");
+    if (event.alpha === null) {
+        degrees.textContent = "NO SENSOR";
+        direction.textContent = "--";
+        return;
+    }
+
+    const heading = Math.round(event.alpha);
+
+    degrees.textContent =
+        heading
+            .toString()
+            .padStart(3, "0") + "°";
+
+    direction.textContent =
+        getDirection(heading);
+
+    console.log("ALPHA:", event.alpha);
+    console.log("HEADING:", heading);
+    console.log("DIRECTION:", getDirection(heading));
 
 });
 
