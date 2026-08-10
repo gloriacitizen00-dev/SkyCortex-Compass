@@ -1,31 +1,140 @@
+```javascript
 import navigationEngine from "./modules/NavigationEngine.js";
 
-const gpsSupported = navigationEngine.initialize();
 
-console.log("Navigation Engine:", navigationEngine);
-console.log("GPS Supported:", gpsSupported);
+// ===============================
+// NAVIGATION ENGINE
+// ===============================
+
+const gpsSupported =
+    navigationEngine.initialize();
+
+console.log(
+    "Navigation Engine:",
+    navigationEngine
+);
+
+console.log(
+    "GPS Supported:",
+    gpsSupported
+);
 
 
 // ===============================
 // ELEMENTOS DE LA INTERFAZ
 // ===============================
 
-const degrees = document.getElementById("degrees");
-const direction = document.getElementById("direction");
+const degrees =
+    document.getElementById("degrees");
 
-const latitude = document.getElementById("latitude");
-const longitude = document.getElementById("longitude");
-const altitude = document.getElementById("altitude");
+const direction =
+    document.getElementById("direction");
 
-const moon = document.getElementById("moon");
-const sun = document.getElementById("sun");
-const solarTime = document.getElementById("solarTime");
-const sunrise = document.getElementById("sunrise");
-const sunset = document.getElementById("sunset");
-const solarAltitude = document.getElementById("solarAltitude");
+const latitude =
+    document.getElementById("latitude");
 
-const gpsStatus = document.getElementById("gpsStatus");
-const accuracy = document.getElementById("accuracy");
+const longitude =
+    document.getElementById("longitude");
+
+const altitude =
+    document.getElementById("altitude");
+
+const moon =
+    document.getElementById("moon");
+
+const sun =
+    document.getElementById("sun");
+
+const solarTime =
+    document.getElementById("solarTime");
+
+const sunrise =
+    document.getElementById("sunrise");
+
+const sunset =
+    document.getElementById("sunset");
+
+const solarAltitude =
+    document.getElementById("solarAltitude");
+
+const gpsStatus =
+    document.getElementById("gpsStatus");
+
+const accuracy =
+    document.getElementById("accuracy");
+
+
+// ===============================
+// COMPASS SVG
+// ===============================
+
+const compass =
+    document.getElementById("compass-svg");
+
+let compassSVG = null;
+let needle = null;
+
+
+// ===============================
+// CARGAR COMPASS SVG
+// ===============================
+
+if (compass) {
+
+    compass.addEventListener(
+        "load",
+        () => {
+
+            console.log(
+                "COMPASS SVG LOADED"
+            );
+
+            compassSVG =
+                compass.contentDocument;
+
+            if (!compassSVG) {
+
+                console.log(
+                    "ERROR: SVG DOCUMENT NOT AVAILABLE"
+                );
+
+                return;
+            }
+
+            needle =
+                compassSVG.getElementById(
+                    "needle"
+                );
+
+            console.log(
+                "NEEDLE:",
+                needle
+            );
+
+            if (!needle) {
+
+                console.log(
+                    "ERROR: NEEDLE NOT FOUND"
+                );
+
+            } else {
+
+                console.log(
+                    "COMPASS READY"
+                );
+
+            }
+
+        }
+    );
+
+} else {
+
+    console.log(
+        "ERROR: COMPASS OBJECT NOT FOUND"
+    );
+
+}
 
 
 // ===============================
@@ -34,31 +143,52 @@ const accuracy = document.getElementById("accuracy");
 
 function getDirection(angle) {
 
-    if (angle >= 337.5 || angle < 22.5) {
+    if (
+        angle >= 337.5 ||
+        angle < 22.5
+    ) {
         return "N";
     }
 
-    if (angle >= 22.5 && angle < 67.5) {
+    if (
+        angle >= 22.5 &&
+        angle < 67.5
+    ) {
         return "NE";
     }
 
-    if (angle >= 67.5 && angle < 112.5) {
+    if (
+        angle >= 67.5 &&
+        angle < 112.5
+    ) {
         return "E";
     }
 
-    if (angle >= 112.5 && angle < 157.5) {
+    if (
+        angle >= 112.5 &&
+        angle < 157.5
+    ) {
         return "SE";
     }
 
-    if (angle >= 157.5 && angle < 202.5) {
+    if (
+        angle >= 157.5 &&
+        angle < 202.5
+    ) {
         return "S";
     }
 
-    if (angle >= 202.5 && angle < 247.5) {
+    if (
+        angle >= 202.5 &&
+        angle < 247.5
+    ) {
         return "SW";
     }
 
-    if (angle >= 247.5 && angle < 292.5) {
+    if (
+        angle >= 247.5 &&
+        angle < 292.5
+    ) {
         return "W";
     }
 
@@ -67,120 +197,310 @@ function getDirection(angle) {
 
 
 // ===============================
-// BRÚJULA — PRUEBA DEL SENSOR
+// ROTAR AGUJA
 // ===============================
 
-window.addEventListener("deviceorientation", (event) => {
-
-    if (event.alpha === null) {
-
-        degrees.textContent = "NO SENSOR";
-        direction.textContent = "--";
-
-        return;
-    }
-
-    let heading = event.alpha;
-
-    heading = ((heading % 360) + 360) % 360;
-
-    const roundedHeading = Math.round(heading);
-
-    degrees.textContent =
-        roundedHeading
-            .toString()
-            .padStart(3, "0") + "°";
-
-    direction.textContent =
-        getDirection(roundedHeading);
-
-
-    // ===============================
-    // MOVE COMPASS NEEDLE
-    // ===============================
-
-    const compass =
-        document.querySelector("object");
-
-    if (!compass) {
-        console.log("Compass SVG not found");
-        return;
-    }
-
-    const svg =
-        compass.contentDocument;
-
-    if (!svg) {
-        console.log("Compass SVG not loaded");
-        return;
-    }
-
-    const needle =
-        svg.getElementById("needle");
+function rotateNeedle(heading) {
 
     if (!needle) {
-        console.log("Needle not found");
+
+        console.log(
+            "NEEDLE NOT READY"
+        );
+
         return;
     }
+
+    const rotation =
+        -heading;
 
     needle.setAttribute(
         "transform",
-        `rotate(${-heading} 250 250)`
+        `rotate(${rotation} 250 250)`
     );
-
 
     console.log(
-        "HEADING:",
-        roundedHeading
+        "NEEDLE ROTATION:",
+        rotation
     );
+}
 
-});
+
+// ===============================
+// BRÚJULA
+// ===============================
+
+window.addEventListener(
+    "deviceorientation",
+    (event) => {
+
+        console.log(
+            "==============================="
+        );
+
+        console.log(
+            "DEVICE ORIENTATION"
+        );
+
+        console.log(
+            "ALPHA:",
+            event.alpha
+        );
+
+        console.log(
+            "BETA:",
+            event.beta
+        );
+
+        console.log(
+            "GAMMA:",
+            event.gamma
+        );
+
+        console.log(
+            "WEBKIT COMPASS:",
+            event.webkitCompassHeading
+        );
+
+
+        // ===========================
+        // SENSOR NO DISPONIBLE
+        // ===========================
+
+        if (
+            event.alpha === null
+        ) {
+
+            if (degrees) {
+
+                degrees.textContent =
+                    "NO SENSOR";
+
+            }
+
+            if (direction) {
+
+                direction.textContent =
+                    "--";
+
+            }
+
+            return;
+        }
+
+
+        // ===========================
+        // CALCULAR HEADING
+        // ===========================
+
+        let heading;
+
+
+        if (
+            typeof event.webkitCompassHeading ===
+            "number"
+        ) {
+
+            heading =
+                event.webkitCompassHeading;
+
+        } else {
+
+            heading =
+                event.alpha;
+
+        }
+
+
+        // ===========================
+        // NORMALIZAR 0 - 359
+        // ===========================
+
+        heading =
+            ((heading % 360) + 360) % 360;
+
+
+        const roundedHeading =
+            Math.round(heading);
+
+
+        // ===========================
+        // MOSTRAR HEADING
+        // ===========================
+
+        if (degrees) {
+
+            degrees.textContent =
+                roundedHeading
+                    .toString()
+                    .padStart(3, "0")
+                +
+                "°";
+
+        }
+
+
+        // ===========================
+        // MOSTRAR DIRECCIÓN
+        // ===========================
+
+        const currentDirection =
+            getDirection(
+                roundedHeading
+            );
+
+        if (direction) {
+
+            direction.textContent =
+                currentDirection;
+
+        }
+
+
+        // ===========================
+        // ACTUALIZAR AGUJA
+        // ===========================
+
+        rotateNeedle(
+            heading
+        );
+
+
+        // ===========================
+        // DEBUG
+        // ===========================
+
+        console.log(
+            "HEADING:",
+            roundedHeading
+        );
+
+        console.log(
+            "DIRECTION:",
+            currentDirection
+        );
+
+    }
+);
 
 
 // ===============================
 // GPS
 // ===============================
 
-if (navigator.geolocation) {
+if (
+    navigator.geolocation
+) {
 
-    gpsStatus.textContent = "SEARCHING...";
+    if (gpsStatus) {
+
+        gpsStatus.textContent =
+            "SEARCHING...";
+
+    }
+
 
     navigator.geolocation.watchPosition(
 
         (position) => {
-
-            gpsStatus.textContent = "ONLINE";
-
-            latitude.textContent =
-                position.coords.latitude.toFixed(5) + "°";
-
-            longitude.textContent =
-                position.coords.longitude.toFixed(5) + "°";
-
-            if (position.coords.altitude !== null) {
-
-                altitude.textContent =
-                    Math.round(
-                        position.coords.altitude
-                    ) + " m";
-
-            } else {
-
-                altitude.textContent = "N/A";
-
-            }
-
-            accuracy.textContent =
-                Math.round(
-                    position.coords.accuracy
-                ) + " m";
 
             console.log(
                 "GPS POSITION:",
                 position.coords
             );
 
+
+            if (gpsStatus) {
+
+                gpsStatus.textContent =
+                    "ONLINE";
+
+            }
+
+
+            // =======================
+            // LATITUDE
+            // =======================
+
+            if (latitude) {
+
+                latitude.textContent =
+                    position.coords.latitude
+                        .toFixed(5)
+                    +
+                    "°";
+
+            }
+
+
+            // =======================
+            // LONGITUDE
+            // =======================
+
+            if (longitude) {
+
+                longitude.textContent =
+                    position.coords.longitude
+                        .toFixed(5)
+                    +
+                    "°";
+
+            }
+
+
+            // =======================
+            // ALTITUDE
+            // =======================
+
+            if (
+                position.coords.altitude !==
+                null
+            ) {
+
+                if (altitude) {
+
+                    altitude.textContent =
+                        Math.round(
+                            position.coords.altitude
+                        )
+                    +
+                    " m";
+
+                }
+
+            } else {
+
+                if (altitude) {
+
+                    altitude.textContent =
+                        "N/A";
+
+                }
+
+            }
+
+
+            // =======================
+            // ACCURACY
+            // =======================
+
+            if (accuracy) {
+
+                accuracy.textContent =
+                    Math.round(
+                        position.coords.accuracy
+                    )
+                +
+                " m";
+
+            }
+
         },
+
+
+        // ===========================
+        // GPS ERROR
+        // ===========================
 
         (error) => {
 
@@ -188,8 +508,12 @@ if (navigator.geolocation) {
 
                 case 1:
 
-                    gpsStatus.textContent =
-                        "PERMISSION DENIED";
+                    if (gpsStatus) {
+
+                        gpsStatus.textContent =
+                            "PERMISSION DENIED";
+
+                    }
 
                     console.log(
                         "GPS ERROR: PERMISSION DENIED"
@@ -197,10 +521,15 @@ if (navigator.geolocation) {
 
                     break;
 
+
                 case 2:
 
-                    gpsStatus.textContent =
-                        "NO SIGNAL";
+                    if (gpsStatus) {
+
+                        gpsStatus.textContent =
+                            "NO SIGNAL";
+
+                    }
 
                     console.log(
                         "GPS ERROR: NO SIGNAL"
@@ -208,10 +537,15 @@ if (navigator.geolocation) {
 
                     break;
 
+
                 case 3:
 
-                    gpsStatus.textContent =
-                        "TIMEOUT";
+                    if (gpsStatus) {
+
+                        gpsStatus.textContent =
+                            "TIMEOUT";
+
+                    }
 
                     console.log(
                         "GPS ERROR: TIMEOUT"
@@ -219,18 +553,30 @@ if (navigator.geolocation) {
 
                     break;
 
+
                 default:
 
-                    gpsStatus.textContent =
-                        "ERROR " + error.code;
+                    if (gpsStatus) {
+
+                        gpsStatus.textContent =
+                            "ERROR " +
+                            error.code;
+
+                    }
 
                     console.log(
                         "GPS ERROR:",
                         error
                     );
+
             }
 
         },
+
+
+        // ===========================
+        // GPS OPTIONS
+        // ===========================
 
         {
             enableHighAccuracy: true,
@@ -242,8 +588,12 @@ if (navigator.geolocation) {
 
 } else {
 
-    gpsStatus.textContent =
-        "GPS NOT SUPPORTED";
+    if (gpsStatus) {
+
+        gpsStatus.textContent =
+            "GPS NOT SUPPORTED";
+
+    }
 
 }
 
@@ -261,55 +611,93 @@ function moonPhase() {
         new Date();
 
     const days =
-        (today - knownNewMoon) /
-        (1000 * 60 * 60 * 24);
+        (
+            today -
+            knownNewMoon
+        )
+        /
+        (
+            1000 *
+            60 *
+            60 *
+            24
+        );
 
-    const cycle = 29.53;
+    const cycle =
+        29.53;
 
     const phase =
         days % cycle;
 
     let name;
 
+
     if (phase < 1) {
 
-        name = "🌑 New Moon";
-
-    } else if (phase < 7.4) {
-
-        name = "🌒 Waxing Crescent";
-
-    } else if (phase < 8.8) {
-
-        name = "🌓 First Quarter";
-
-    } else if (phase < 14.7) {
-
-        name = "🌔 Waxing Gibbous";
-
-    } else if (phase < 16) {
-
-        name = "🌕 Full Moon";
-
-    } else if (phase < 22) {
-
-        name = "🌖 Waning Gibbous";
-
-    } else if (phase < 23.5) {
-
-        name = "🌗 Last Quarter";
-
-    } else {
-
-        name = "🌘 Waning Crescent";
+        name =
+            "🌑 New Moon";
 
     }
 
+    else if (phase < 7.4) {
+
+        name =
+            "🌒 Waxing Crescent";
+
+    }
+
+    else if (phase < 8.8) {
+
+        name =
+            "🌓 First Quarter";
+
+    }
+
+    else if (phase < 14.7) {
+
+        name =
+            "🌔 Waxing Gibbous";
+
+    }
+
+    else if (phase < 16) {
+
+        name =
+            "🌕 Full Moon";
+
+    }
+
+    else if (phase < 22) {
+
+        name =
+            "🌖 Waning Gibbous";
+
+    }
+
+    else if (phase < 23.5) {
+
+        name =
+            "🌗 Last Quarter";
+
+    }
+
+    else {
+
+        name =
+            "🌘 Waning Crescent";
+
+    }
+
+
     if (moon) {
-        moon.textContent = name;
+
+        moon.textContent =
+            name;
+
     }
 
 }
+
 
 moonPhase();
 
@@ -329,6 +717,11 @@ function updateSolarTime() {
     const minutes =
         now.getMinutes();
 
+
+    // ===========================
+    // HORA
+    // ===========================
+
     if (solarTime) {
 
         solarTime.textContent =
@@ -344,9 +737,17 @@ function updateSolarTime() {
 
     }
 
+
+    // ===========================
+    // DÍA / NOCHE
+    // ===========================
+
     if (sun) {
 
-        if (hours >= 6 && hours < 18) {
+        if (
+            hours >= 6 &&
+            hours < 18
+        ) {
 
             sun.textContent =
                 "☀️ DAY";
@@ -362,9 +763,12 @@ function updateSolarTime() {
 
 }
 
+
 updateSolarTime();
+
 
 setInterval(
     updateSolarTime,
     60000
 );
+```
