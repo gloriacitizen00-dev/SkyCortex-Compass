@@ -196,6 +196,7 @@ function getDirection(angle) {
 }
 
 
+```javascript
 // ===============================
 // ROTAR AGUJA
 // ===============================
@@ -219,6 +220,7 @@ function rotateNeedle(heading) {
         rotation
     );
 }
+```
 
 
 // ===============================
