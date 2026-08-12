@@ -281,6 +281,108 @@ window.addEventListener(
             return;
         }
 
+                // ===========================
+        // OBTENER HEADING
+        // ===========================
+
+        let heading = null;
+
+        // iPhone / iPad
+        if (
+            typeof event.webkitCompassHeading === "number" &&
+            !isNaN(event.webkitCompassHeading)
+        ) {
+
+            heading =
+                event.webkitCompassHeading;
+
+        }
+
+        // Android / otros navegadores
+        else if (
+            typeof event.alpha === "number"
+        ) {
+
+            heading =
+                360 - event.alpha;
+
+        }
+
+
+        // ===========================
+        // VALIDAR HEADING
+        // ===========================
+
+        if (
+            heading === null ||
+            isNaN(heading)
+        ) {
+
+            console.log(
+                "HEADING NOT AVAILABLE"
+            );
+
+            if (degrees) {
+                degrees.textContent =
+                    "--°";
+            }
+
+            if (direction) {
+                direction.textContent =
+                    "--";
+            }
+
+            return;
+        }
+
+
+        // ===========================
+        // NORMALIZAR 0 - 360
+        // ===========================
+
+        heading =
+            (heading + 360) % 360;
+
+
+        console.log(
+            "FINAL HEADING:",
+            heading
+        );
+
+
+        // ===========================
+        // MOSTRAR GRADOS
+        // ===========================
+
+        if (degrees) {
+
+            degrees.textContent =
+                Math.round(heading) + "°";
+
+        }
+
+
+        // ===========================
+        // DIRECCIÓN
+        // ===========================
+
+        if (direction) {
+
+            direction.textContent =
+                getDirection(heading);
+
+        }
+
+
+        // ===========================
+        // ROTAR AGUJA
+        // ===========================
+
+        rotateNeedle(heading);
+
+    }
+);
+
 
         // ===========================
         // CALCULAR HEADING
