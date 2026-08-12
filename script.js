@@ -1,18 +1,11 @@
-```javascript
-import navigationEngine from "./modules/NavigationEngine.js";
-
-
 // ===============================
-// NAVIGATION ENGINE
+// SKYCORTEX COMPASS
 // ===============================
+
+console.log("SKYCORTEX COMPASS STARTING");
 
 const gpsSupported =
-    navigationEngine.initialize();
-
-console.log(
-    "Navigation Engine:",
-    navigationEngine
-);
+    "geolocation" in navigator;
 
 console.log(
     "GPS Supported:",
