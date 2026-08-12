@@ -383,30 +383,6 @@ window.addEventListener(
     }
 );
 
-
-        // ===========================
-        // CALCULAR HEADING
-        // ===========================
-
-        let heading;
-
-
-        if (
-            typeof event.webkitCompassHeading ===
-            "number"
-        ) {
-
-            heading =
-                event.webkitCompassHeading;
-
-        } else {
-
-            heading =
-                event.alpha;
-
-        }
-
-
         // ===========================
         // NORMALIZAR 0 - 359
         // ===========================
