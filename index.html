@@ -8,8 +8,19 @@
 </head>
 <body>
   <div class="compass-container">
-    <img src="compass.jpg" alt="Rosa de los vientos" class="compass-base">
-    <div id="needle"></div>
+    <!-- Rosa de los vientos SVG -->
+    <svg id="compass" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+      <circle cx="250" cy="250" r="240" fill="black" stroke="#FFD700" stroke-width="4"/>
+      <polygon points="250,60 310,190 440,190 340,270 380,400 250,330 120,400 160,270 60,190 190,190"
+               fill="#0A3D62" stroke="#FFD700" stroke-width="3"/>
+      <circle cx="250" cy="250" r="180" fill="none" stroke="#FFD700" stroke-width="2" stroke-dasharray="12,6"/>
+      <text x="250" y="40" fill="#00aaff" font-family="Press Start 2P" font-size="20" text-anchor="middle">N</text>
+      <text x="250" y="480" fill="#00aaff" font-family="Press Start 2P" font-size="20" text-anchor="middle">S</text>
+      <text x="40" y="260" fill="#00aaff" font-family="Press Start 2P" font-size="20" text-anchor="middle">W</text>
+      <text x="460" y="260" fill="#00aaff" font-family="Press Start 2P" font-size="20" text-anchor="middle">E</text>
+      <!-- Aguja -->
+      <rect id="needle" x="248" y="100" width="4" height="150" fill="red" transform="rotate(0,250,250)"/>
+    </svg>
   </div>
 
   <div class="control-panel">
@@ -17,8 +28,6 @@
     <p id="latitude">Latitud: --</p>
     <p id="longitude">Longitud: --</p>
     <p id="altitude">Altitud: --</p>
-    <p id="moon">Luna: --</p>
-    <p id="sun">Sol: --</p>
   </div>
 
   <script src="script.js"></script>
