@@ -2,25 +2,12 @@
   <!-- Fondo -->
   <circle cx="300" cy="300" r="280" fill="black" stroke="#FFD700" stroke-width="6"/>
 
-  <!-- Gradiente dorado -->
-  <defs>
-    <radialGradient id="goldGradient" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stop-color="#FFF8DC"/>
-      <stop offset="100%" stop-color="#FFD700"/>
-    </radialGradient>
-    <!-- Patrón geométrico -->
-    <pattern id="geoPattern" width="40" height="40" patternUnits="userSpaceOnUse">
-      <circle cx="20" cy="20" r="10" fill="#0A3D62"/>
-      <rect x="0" y="0" width="40" height="40" fill="none" stroke="#FFD700" stroke-width="1"/>
-    </pattern>
-  </defs>
-
   <!-- Estrella islámica de 8 puntas -->
   <polygon points="300,40 370,200 560,200 420,320 470,520 300,400 130,520 180,320 40,200 230,200"
-           fill="url(#goldGradient)" stroke="#0A3D62" stroke-width="4"/>
+           fill="#0A3D62" stroke="#FFD700" stroke-width="4"/>
 
-  <!-- Anillo decorativo con patrón -->
-  <circle cx="300" cy="300" r="220" fill="url(#geoPattern)" stroke="#FFD700" stroke-width="3"/>
+  <!-- Anillo decorativo -->
+  <circle cx="300" cy="300" r="220" fill="none" stroke="#FFD700" stroke-width="3" stroke-dasharray="14,7"/>
 
   <!-- Direcciones cardinales -->
   <text x="300" y="60" fill="#00aaff" font-family="Press Start 2P" font-size="22" text-anchor="middle">N</text>
