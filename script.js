@@ -7,13 +7,16 @@ window.addEventListener('deviceorientation', (event) => {
   direction.textContent = `Dirección: ${Math.round(heading)}°`;
 });
 
-// GPS básico
+// GPS: latitud, longitud y altitud
 if (navigator.geolocation) {
   navigator.geolocation.getCurrentPosition((pos) => {
     document.getElementById('latitude').textContent = `Latitud: ${pos.coords.latitude.toFixed(4)}`;
     document.getElementById('longitude').textContent = `Longitud: ${pos.coords.longitude.toFixed(4)}`;
-    document.getElementById('altitude').textContent = `Altitud: ${pos.coords.altitude || '--'} m`;
+    document.getElementById('altitude').textContent = `Altitud: ${pos.coords.altitude !== null ? pos.coords.altitude.toFixed(2) + ' m' : '--'}`;
+  }, (error) => {
+    console.error(error);
+    document.getElementById('latitude').textContent = "Latitud: --";
+    document.getElementById('longitude').textContent = "Longitud: --";
+    document.getElementById('altitude').textContent = "Altitud: --";
   });
 }
-
-
